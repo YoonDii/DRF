@@ -7,6 +7,12 @@ from selenium.webdriver.support import (
 )  # 기다리게하는 조건을 뭘로할지 정의해주는것
 
 
+def wait_until(xpath_str):  # 시간대기함수
+    WebDriverWait(browser, 30).until(
+        EC.presence_of_element_located((By.XPATH, xpath_str))
+    )
+
+
 browser = webdriver.Chrome()
 url = "https://m-flight.naver.com/"
 browser.get(url)
@@ -16,10 +22,8 @@ begin_date.click()
 
 # time.sleep(1)  # 1초대기
 
-WebDriverWait(browser, 30).until(
-    EC.presence_of_element_located((By.XPATH, '//b[text() ="27"]'))
-)
 
+wait_until('//b[text() ="27"]')  # 나올때까지 30초 대기
 day27 = browser.find_elements(By.XPATH, '//b[text() ="27"]')
 day27[0].click()
 
