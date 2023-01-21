@@ -40,3 +40,6 @@ rank2 = rank3.find_previous_sibling("li")
 
 # 한꺼번에 찾기
 print(rank1.find_next_siblings("li"))
+
+webtoon = soup.find("a", text = "앞집나리")
+print(webtoon)
