@@ -2,12 +2,17 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from datetime  import datetime
 from django.http import Http404
-
+from restaurant.models import Menu
 # Create your views here.
 
 def index(request):
+    context = dict()
     today = datetime.today().date()
-    context = {"date": today}
+    menus = Menu.objects.all()
+    context = {
+        "date": today,
+        "menus":menus,
+        }
     return render(request,'restaurant/index.html',context=context)
 
 def food_detail(request,food):
