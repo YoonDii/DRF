@@ -36,23 +36,23 @@ def bookAPI(request,bid): #/book/bid/
 
 
 #클래스형뷰
-# class BooksAPI(APIView):
-#     def get(self,request):
-#         books = Book.objects.all()
-#         serializer = BookSerializer(books,many=True)
-#         return Response (serializer.data, status=status.HTTP_200_OK)
+class BooksAPI(APIView):
+    def get(self,request):
+        books = Book.objects.all()
+        serializer = BookSerializer(books,many=True)
+        return Response (serializer.data, status=status.HTTP_200_OK)
 
-#     def post(self,request):
-#         serializer = BookSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post(self,request):
+        serializer = BookSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# class BookAPI(APIView):
-#     def get(self,request,bid):
-#         book = get_object_or_404(book, bid=bid)
-#         serializer = BookSerializer(book)
-#         return Response(serializer.data, status=status.HTTP_200_OK)
+class BookAPI(APIView):
+    def get(self,request,bid):
+        book = get_object_or_404(book, bid=bid)
+        serializer = BookSerializer(book)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 #함수형과 클래스뷰형의 차이점은 클래서 내에 get과 post를 따로 정의해 주기 때문에 데코레이터도 필요없고, 조건문으로 따져볼필요가 없다.
