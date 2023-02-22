@@ -31,10 +31,12 @@ def overview_validator(value):
     return value
 
 class MovieSerializer(serializers.ModelSerializer):#생성, 수정, 삭제 자동으로 만들어줌
-    movie_reviews = serializers.PrimaryKeyRelatedField(source='reviews', many=True, read_only=True)
+    # movie_reviews = serializers.PrimaryKeyRelatedField(source='reviews', many=True, read_only=True)
+    reviews = serializers.StringRelatedField(many=True)
+    actors = serializers.StringRelatedField(many=True, read_only=True)
     class Meta:
         model = Movie
-        fields = ['id', 'name', 'opening_date', 'running_time', 'overview','reviews']
+        fields = ['id', 'name', 'opening_date', 'running_time', 'overview','reviews','actors']
         #유효성검사도구 사용시
         # overview = serializers.CharField(validators=[MinLengthValidator(limit_value=10), MaxLengthValidator(limit_value=300)])
         #유효성검사 직접작성
@@ -60,12 +62,14 @@ class MovieSerializer(serializers.ModelSerializer):#생성, 수정, 삭제 자�
 #         return instance
 
 class ActorSerializer(serializers.ModelSerializer):
+    movies = MovieSerializer(many=True, read_only=True)
     class Meta:
         model = Actor
-        fields = ['id','name','gender','birth_date']    
+        fields = ['id','name','gender','birth_date','movies']    
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    movie = serializers.StringRelatedField()
     class Meta:
         model = Review
         fields = ['id','movie','username','star','comment','created']
