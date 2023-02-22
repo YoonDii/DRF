@@ -53,3 +53,21 @@ def actor_list(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+    
+@api_view(['GET','DELETE','PATCH'])
+def actor_detail(request,pk):
+    actor = get_object_or_404(Actor, pk=pk)
+    if request.method == 'GET':
+        serializer = ActorSerializer(actor)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    elif request.method == 'PATCH':
+        serializer = ActorSerializer(actor, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        actor.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
