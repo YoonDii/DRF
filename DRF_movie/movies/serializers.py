@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from rest_framework.serializers import ValidationError
+from django.core.validators import MaxLengthValidator,MinLengthValidator #길이제한 유효성검사
 from .models import Movie,Actor
 
 # class MovieSerializer(serializers.Serializer):
@@ -19,10 +21,21 @@ from .models import Movie,Actor
 #         instance.save()
 #         return instance
 
+#유효성검사 직접 작성하기
+def overview_validator(value):
+    if value > 300:
+        raise ValidationError('소개 문구는 최대 300자 이하로 작성해야 합니다.')
+    elif value < 10:
+        raise ValidationError('소개 문구는 최소 10자 이상으로 작성해야 합니다.')
+    return value
+
 class MovieSerializer(serializers.ModelSerializer):#생성, 수정, 삭제 자동으로 만들어줌
     class Meta:
         model = Movie
         fields = ['id', 'name', 'opening_date', 'running_time', 'overview']
+        #유효성검사도구 사용시
+        # overview = serializers.CharField(validators=[MinLengthValidator(limit_value=10), MaxLengthValidator(limit_value=300)])
+        overview = serializers.CharField(validators=[overview_validator])
 
 
 # class ActorSerializer(serializers.Serializer):
