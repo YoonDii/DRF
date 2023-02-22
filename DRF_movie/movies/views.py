@@ -1,6 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.generics import get_object_or_404
 
 from .models import Movie , Actor
 from .serializers import MovieSerializer,ActorSerializer
@@ -20,10 +21,24 @@ def movie_list(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  
 
 @api_view(['GET','DELETE','PATCH'])
 def movie_detail(request,pk):
-    pass
+    movie = get_object_or_404(Movie, pk=pk)
+    if request.method == 'GET':
+        serializer = MovieSerializer(movie)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    elif request.method == 'PATCH':
+        serializer = MovieSerializer(movie, data=request.data, partial=True) #모든 데이터를 수정하는 PUT 요청을 처리해야 한다면 partial 옵션을 적지 않아도 된다.
+        if serializer.is_valid():
+            serializer.save()    
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        movie.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT) #반환할 데이터가 없기때문에 204만 반환.
+
 
 @api_view(['GET','POST'])
 def actor_list(request):
