@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
-from django.core.validators import MaxLengthValidator,MinLengthValidator #길이제한 유효성검사
+from django.core.validators import MaxLengthValidator,MinLengthValidator #길이제한 유효성검사.
+from rest_framework.validators import UniqueTogetherValidator #두 개 이상의 필드에서 값이 유일한지 확인.
 from .models import Movie,Actor
 
 # class MovieSerializer(serializers.Serializer):
@@ -35,8 +36,10 @@ class MovieSerializer(serializers.ModelSerializer):#생성, 수정, 삭제 자�
         fields = ['id', 'name', 'opening_date', 'running_time', 'overview']
         #유효성검사도구 사용시
         # overview = serializers.CharField(validators=[MinLengthValidator(limit_value=10), MaxLengthValidator(limit_value=300)])
+        #유효성검사 직접작성
         overview = serializers.CharField(validators=[overview_validator])
-
+        validators = [UniqueTogetherValidator(queryset=Movie.objects.all(),fields=['name','overview'])]
+        # fields는 queryset에서 조회한 데이터 중 어떤 필드들을 기준으로 유일성 검사를 할지 정의하는 필수 옵션
 
 # class ActorSerializer(serializers.Serializer):
 #     id = serializers.IntegerField(read_only=True)
