@@ -33,13 +33,14 @@ def overview_validator(value):
 class MovieSerializer(serializers.ModelSerializer):#생성, 수정, 삭제 자동으로 만들어줌
     class Meta:
         model = Movie
-        fields = ['id', 'name', 'opening_date', 'running_time', 'overview']
+        fields = ['id', 'name', 'opening_date', 'running_time', 'overview','reviews']
         #유효성검사도구 사용시
         # overview = serializers.CharField(validators=[MinLengthValidator(limit_value=10), MaxLengthValidator(limit_value=300)])
         #유효성검사 직접작성
         overview = serializers.CharField(validators=[overview_validator])
         validators = [UniqueTogetherValidator(queryset=Movie.objects.all(),fields=['name','overview'])]
         # fields는 queryset에서 조회한 데이터 중 어떤 필드들을 기준으로 유일성 검사를 할지 정의하는 필수 옵션
+        read_only_fields = ['reviews']
 
 # class ActorSerializer(serializers.Serializer):
 #     id = serializers.IntegerField(read_only=True)
