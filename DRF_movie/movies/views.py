@@ -21,6 +21,9 @@ def movie_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET','DELETE','PATCH'])
+def movie_detail(request,pk):
+    pass
 
 @api_view(['GET','POST'])
 def actor_list(request):
