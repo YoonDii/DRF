@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
 
-from .models import Movie , Actor
-from .serializers import MovieSerializer,ActorSerializer
+from .models import Movie , Actor, Review
+from .serializers import MovieSerializer,ActorSerializer,ReviewSerializer
 
 # Create your views here.
 # @api_view(['GET'])으로 함수형 뷰인 movie_list()가 GET 메소드만 허용하는 API를 제공한다는 걸 표시
@@ -71,3 +71,17 @@ def actor_detail(request,pk):
         actor.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+@api_view(['GET','POST'])
+def review_list(request,pk):
+    movie =get_object_or_404(Movie,pk=pk)
+    if request.method == 'GET':
+        reviews = Review.objects.filter(movie=movie)
+        serializer = ReviewSerializer(reviews, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    elif request.method == 'POST':
+        serializer = ReviewSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(movie=movie)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.serializers import ValidationError
 from django.core.validators import MaxLengthValidator,MinLengthValidator #길이제한 유효성검사.
 from rest_framework.validators import UniqueTogetherValidator #두 개 이상의 필드에서 값이 유일한지 확인.
-from .models import Movie,Actor
+from .models import Movie,Actor,Review
 
 # class MovieSerializer(serializers.Serializer):
 #     id = serializers.IntegerField(read_only=True) #조회만하고싶다
@@ -61,3 +61,13 @@ class ActorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actor
         fields = ['id','name','gender','birth_date']    
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ['id','movie','username','star','comment','created']
+        # extra_kwargs 옵션으로 리뷰를 생성할 때는 영화 정보(id)를 입력받지 않고 URL로 받아올 것
+        extra_kwargs = {
+            'movie':{'read_only': True},
+        }
