@@ -7,3 +7,7 @@ class Movie(models.Model):
     running_time = models.IntegerField()
     overview = models.TextField()
 
+class Actor(models.Model):
+    name = models.CharField(max_length=20)
+    gender = models.CharField(max_length=10)
+    birth_date = models.DateField()
