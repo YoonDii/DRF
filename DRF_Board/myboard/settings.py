@@ -106,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 #토큰인증방식 옵션추가
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication',
+        'rest_framework.authentication.TokenAuthentication',
     ],
 }
 
