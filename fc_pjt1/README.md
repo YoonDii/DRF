@@ -15,3 +15,14 @@
   `import collection`한 다음 원하는 단어의 개수 찾아주면 됨.
   `collections.Counter(인스턴스)`
 
+  4. 문서를 요약하자 
+  gensim : 자연어 처리, 토픽 모델링에 사용되는 파이썬 머신러닝 라이브러리
+  `pip install gensim==3.7.3` 
+  4.x인 최신버전은 summarization내장모듈이 지원이 안되기 때문에 그 밑의 버전으로 깔아야한다.
+
+  5. 텍스트 파일 저장
+  `파일객체 = open(파일 이름,파일 열기 모드)`
+  `파일 객체.close()`
+
+  6. 실습하기
+  
