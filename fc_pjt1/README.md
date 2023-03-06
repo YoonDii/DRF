@@ -10,5 +10,8 @@
   `import re` 정규표현식
   둘 다 많은 함수들이 있으니 꼭 공식문서 확인하기!
 
-  3. 
+  3. 단어 개수를 구하자
+  `collections.Counter`를 사용하면 된다.
+  `import collection`한 다음 원하는 단어의 개수 찾아주면 됨.
+  `collections.Counter(인스턴스)`
 
