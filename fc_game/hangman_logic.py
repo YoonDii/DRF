@@ -1,5 +1,19 @@
+# 단어가 랜덤으로 나오게 하기
+import random
+
+f = open("voca.txt", "r", encoding="UTF-8")
+raw_data = f.read()
+f.close()
+data_list = raw_data.split("\n")
+data_list = data_list[:-1]
+
+while True:
+    r_index = random.randrange(0, len(data_list))
+    word = data_list[r_index].replace("\xa0", " ").split(" ")[1]
+    if len(word) <= 6:
+        break
+print(word)
 # A가 영어 단어를 1개 생각한다.
-word = "man"
 word = word.upper()
 # print(word)
 
@@ -39,3 +53,4 @@ while True:
     # 단어가 먼저 오나성되면 단어를 맞힌 사람 B가 이긴다.
     if word_show.find("_") == -1:
         break
+print("정답은 : " + word)
