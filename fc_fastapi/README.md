@@ -16,3 +16,9 @@ Annotation Based API Server
 6. 큰 커뮤니티
 7. 아직은 작은 생태계
 
+
+### 가상환경 설정 후 가상환경 켜고 pip install fastapi 'uvicorn[standard]'설치
+### 실행할때는 터미널에 uvicorn main:app --reload 입력
+main : 모듈명을 의미합니다. # (main.py)
+app : FastAPI로부터 생성된 인스턴스를 의미합니다. # app=FastAPI()
+--reload : 코드 수정시 새로고침됨을 의미합니다.
