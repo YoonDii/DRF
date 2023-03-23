@@ -23,6 +23,8 @@ main : 모듈명을 의미합니다. # (main.py)
 app : FastAPI로부터 생성된 인스턴스를 의미합니다. # app=FastAPI()
 --reload : 코드 수정시 새로고침됨을 의미합니다.
 
+http://127.0.0.1:8000 로컬서버 뒤에 /docs를 치면 Swagger UI로 바뀐 화면이 나온다.
+
 ### uvicorn은 ASGI(비동기서버)를 위한 파이썬라이브러리다.
 https://www.uvicorn.org/
 node.js에서 차용해온 파이썬버전의 uvloop라고 생각하면 된다.
