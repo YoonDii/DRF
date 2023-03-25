@@ -6,7 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker 
 
 
-SQLALCHEMY_DATABASE_URL = "splite://./jumpto_fastapi.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./jumpto_fastapi.db"
 # create_engine은 컨넥션 풀을 생성한다. 
 # 컨넥션 풀이란 데이터베이스에 접속하는 객체를 일정 갯수만큼 만들어 놓고 돌려가며 사용하는 것을 말한다. 
 # (컨넥션 풀은 데이터 베이스에 접속하는 세션수를 제어하고, 또 세션 접속에 소요되는 시간을 줄이고자 하는 용도로 사용한다.)
