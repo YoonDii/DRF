@@ -1,4 +1,5 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
 
 # from database import SessionLocal
 from database import get_db
@@ -16,7 +17,7 @@ router = APIRouter(
 #     return _question_list
 
 @router.get("/list")
-def question_list():
+def question_list(db: Session = Depends(get_db)):#Depends는 매개 변수로 전달 받은 함수를 실행시킨 결과를 리턴
     with get_db() as db :
         _question_list = db.query(Question).order_by(Question.creates.desc()).all()
         return _question_list

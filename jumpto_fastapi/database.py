@@ -1,4 +1,4 @@
-import contextlib
+# import contextlib
 #데이터베이스연결하는 역할
 from sqlalchemy import create_engine 
 #orm정의하는 역할
@@ -18,11 +18,10 @@ SessionLocal = sessionmaker(autocommit=False,autoflush=False,bind=engine)
 
 Base = declarative_base()
 
-@contextlib.contextmanager
+# @contextlib.contextmanager
 def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
-        
