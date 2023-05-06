@@ -20,7 +20,7 @@ $(document).ready(function(){
   return false;
   });
 
-  //유효성이 통과시 글자색 변경
+  //성공하면 다시 검정색& 안내문구 없애기
   host.addEventListener("keyup", Key1, false);
   function Key1(e){
     if (regHost.test(host.value)){
@@ -42,7 +42,7 @@ $(document).ready(function(){
   return false;
   });
 
-  //유효성이 통과시 글자색 변경
+  //성공하면 다시 검정색& 안내문구 없애기
   port.addEventListener("keyup", Key2, false);
   function Key2(e){
     if (regPort.test(port.value)){
